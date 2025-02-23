@@ -21,7 +21,10 @@ function shallowCopy(obj) {
   const obj1 = {};
   return Object.assign(obj1, obj);
 }
+// function shallowCopy(obj) {
 
+//   return {...obj};
+// }
 /**
  * Merges array of objects into a single object. If there are overlapping keys, the values
  * should be summed.
@@ -287,8 +290,21 @@ function sortCitiesArray(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+
+  for (let i = 0; i < array.length; i += 1) {
+    const key = keySelector(array[i]);
+    const value = valueSelector(array[i]);
+
+    if (map.has(key)) {
+      map.get(key).push(value);
+    } else {
+      map.set(key, [value]);
+    }
+  }
+
+  return map;
 }
 
 /**
